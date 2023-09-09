@@ -1,0 +1,173 @@
+﻿@page "/stdinstallment/{STDID}"
+
+<PageTitle>Index</PageTitle>
+
+<EditForm Model="stdInstallment" OnSubmit="SaveStdInstallment">
+
+    <div class="mb-3">
+
+        <table>
+            <tr>
+                <td>
+                    <input type="text" disabled class="form-control" id="exampleInput" placeholder="Student ID" @bind="stdInstallment.fk_StudentId">
+                </td>
+                <td>
+
+                    <select class="form-select" aria-label="Default select example" @onchange="_InstallmentEdit">
+                        <option ID="DropDown">---Select Installment Number---</option>
+
+                        <option value="1">First</option>
+                        <option value="2">Secound</option>
+                        <option value="3">Third</option>
+                        <option value="4">Fourth</option>
+                        <option value="5">Fifth</option>
+                        <option value="6">Sixth</option>
+                        <option value="7">Seven</option>
+                        <option value="8">Eigth</option>
+
+                    </select>
+
+                </td>
+                <td>
+                    <select class="form-select" aria-label="Default select example" @onchange="_InstallmentDurationEdit">
+                        <option ID="DropDown">---Select Installment Duration---</option>
+
+                        <option value="1">1 month</option>
+                        <option value="2">2 month</option>
+                        <option value="3">3 month</option>
+                        <option value="4">4 month</option>
+                        <option value="5">5 month</option>
+                        <option value="6">6 month</option>
+                        <option value="7">7 month</option>
+                        <option value="8">8 month</option>
+                        <option value="9">9 month</option>
+                        <option value="10">10 month</option>
+                        <option value="11">11 month</option>
+                        <option value="12">12 month</option>
+
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="exampleInput" placeholder="Installment Amount" @bind="stdInstallment.InstallmentAmount">
+                </td>
+                <td>
+                    <select class="form-select" aria-label="Default select example" @onchange="_InstallmentStatusEdit">
+                        <option ID="DropDown">---Select Installment Status---</option>
+
+                        <option value="Paid">Paid</option>
+                        <option value="Inprocess">In Process</option>
+                        
+
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="exampleInput" placeholder="Checque Number" @bind="stdInstallment.Checqueno">
+                </td>
+
+                <td>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</EditForm>
+
+
+<section>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th> StudentId </th>
+                <th> Installment Number </th>
+                <th> Installment Duration </th>
+                <th> Installment Amount </th>
+                <th> Checque Number </th>
+                <th> Status </th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in dt.Rows)
+            {
+                <tr>
+                    <td>@row["fk_StudentId"]</td>
+                    <td>@row["Installment"]</td>
+                    <td>@row["InstallmentDuration"] month</td>
+                    <td>@row["InstallmentAmount"] Rs</td>
+                    <td>@row["Checqueno"]</td>
+                    <td>@row["Status"]</td>
+                  
+
+                </tr>
+
+
+
+            }
+
+
+        </tbody>
+    </table>
+
+
+</section>
+
+@code {
+    [Parameter] public string? STDID { get; set; }
+    public string? InstallmentEdit { get; set; }
+    public string? InstallmentDurationEdit { get; set; }
+    public string? InstallmentStatusEdit { get; set; }
+    protected EntStudentInstallments? stdInstallment { get; set; } = new EntStudentInstallments();
+    protected List<EntStudentInstallments> ProvinceList;
+
+    DataTable dt = new DataTable();
+
+    private void _InstallmentEdit(ChangeEventArgs e)
+    {
+        InstallmentEdit = e.Value as string;
+    }
+    private void _InstallmentDurationEdit(ChangeEventArgs e)
+    {
+        InstallmentDurationEdit = e.Value as string;
+    }
+    private void _InstallmentStatusEdit(ChangeEventArgs e)
+    {
+        InstallmentStatusEdit = e.Value as string;
+    }
+
+
+    protected async Task SaveStdInstallment()
+    {
+        stdInstallment.Installment = InstallmentEdit;
+        stdInstallment.InstallmentDuration = InstallmentDurationEdit;
+        stdInstallment.Status = InstallmentStatusEdit;
+
+        SqlParameter[] sp =
+        {
+            new SqlParameter("@fk_StudentId",stdInstallment.fk_StudentId),
+            new SqlParameter("@Installment",stdInstallment.Installment),
+            new SqlParameter("@InstallmentDuration",stdInstallment.InstallmentDuration),
+            new SqlParameter("@Status",stdInstallment.Status),
+            new SqlParameter("@Checqueno",stdInstallment.Checqueno),
+            new SqlParameter("@InstallmentAmount",stdInstallment.InstallmentAmount)
+
+            
+    };
+        await DALCRUD.CRUD("SP_SaveStudentInstallments", sp);
+
+    }
+    protected override void OnInitialized()
+    {
+        stdInstallment.fk_StudentId = STDID;
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        dt = await DALCRUD.ReadTable("SP_GetStudentInstallmentInfo");
+
+    }
+
+
+
+}

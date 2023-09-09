@@ -1,0 +1,143 @@
+﻿@page "/instituteinfo"
+
+
+<PageTitle>Index</PageTitle>
+
+<section>
+    <EditForm Model="institute" OnSubmit="SaveInstituteInfo">
+        <div class="mb-3">
+            <table>
+                <tr>
+                    <td>
+
+                        <select class="form-select" aria-label="Default select example" @onchange="_ProvinceEdit">
+                            <option ID="DropDown">---Select Province---</option>
+                            @foreach (DataRow row in dt1.Rows)
+
+                            {
+
+                                <option value="@row["pk_ProvinceId"]">@row["Province"]</option>
+
+                            }
+                        </select>
+                    </td>
+                    <td>
+
+                        <InputText class="form-control" @bind-Value="institute!.InstituteName" Placeholder="Enter Institute Name" />
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </td>
+                </tr>
+            </table>
+
+
+
+
+        </div>
+    </EditForm>
+
+
+
+</section>
+<div class=" table-responsive">
+
+    <Table TItem="EntInstituteInfo" DataSource="@data">
+
+        <GenerateColumns Range="1.." Definitions=definitions />
+
+        <ActionColumn Title="Action">
+            <Space Size=@("middle")>
+
+                <SpaceItem>
+                    <a href="focalperson/@context.PkInstituteId" class="btn btn-warning bt-sm">Add Focal Person</a>
+                    <a href="studentinfo/@context.PkInstituteId" class="btn btn-warning bt-sm">Add Students</a>
+                    
+                </SpaceItem>
+            </Space>
+        </ActionColumn>
+    </Table>
+</div>
+@code {
+    List<EntInstituteInfo> instituteslist = new List<EntInstituteInfo>();
+    EntInstituteInfo[] data = new EntInstituteInfo[] { };
+    protected EntInstituteInfo? institute { get; set; } = new EntInstituteInfo();
+    protected List<EntProvince>? ProvinceList;
+    private string? ProvinceEdit { get; set; }
+
+
+    DataTable dt = new DataTable();
+    DataTable dt1 = new DataTable();
+    private void _ProvinceEdit(ChangeEventArgs e)
+    {
+        ProvinceEdit = e.Value as string;
+    }
+    private void ConvertDataIntoArray()
+    {
+        foreach (DataRow row in dt.Rows)
+        {
+            EntInstituteInfo entInstituteInfo = new EntInstituteInfo
+                    {
+                        PkInstituteId = Convert.ToInt32(row["pk_InstituteId"]), // Adjust column names as needed
+                        FkProvinceId = row["fk_ProvinceId"].ToString(),
+                        InstituteName = row["InstituteName"].ToString(),
+
+
+                        // Map other properties here if needed
+                    };
+
+            instituteslist.Add(entInstituteInfo);
+        }
+        data = instituteslist.ToArray();
+    }
+    void definitions(string propertyName, object column)
+    {
+        if (propertyName == "Tags")
+        {
+            var tagCol = ((Column<string[]>)column);
+
+            tagCol.CellRender = cellData =>
+    @<span>
+        @foreach (var tag in cellData.FieldValue)
+        {
+            var color = tag.Length > 5 ? "geekblue" : "green";
+            if (tag == "loser")
+            {
+                color = "volcano";
+            }
+            <Tag Color="@color">@tag</Tag>
+        }
+    </span>
+    ;
+
+            return;
+        }
+
+        // You can use the `SetValue` extension method to set parameters for columns.
+        column.SetValue("Sortable", true);
+        column.SetValue("Filterable", true);
+    }
+    protected async Task SaveInstituteInfo()
+    {
+        institute!.FkProvinceId = ProvinceEdit;
+        SqlParameter[] sp =
+        {
+
+            new SqlParameter("fkProvinceId",institute.FkProvinceId),
+            new SqlParameter("InstituteName",institute.InstituteName)
+    };
+        await DALCRUD.CRUD("Sp_SaveInstituteInfo", sp);
+
+        nm.NavigateTo("/instituteinfo", forceLoad: true);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        dt = await DALCRUD.ReadTable("GetInstituteInfo");
+        dt1 = await DALCRUD.ReadTable("SP_GetProvince");
+        ConvertDataIntoArray();
+
+    }
+
+
+}

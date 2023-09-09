@@ -1,0 +1,117 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = NEST
+build_property.RootNamespace = NEST
+build_property.ProjectDir = C:\Users\muham\Downloads\u-NEST-master\NEST\NEST\NEST\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\muham\Downloads\u-NEST-master\NEST\NEST\NEST
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/AddEmployee.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkRW1wbG95ZWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/AddFocalPerson.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkRm9jYWxQZXJzb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/AddStudentInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkU3R1ZGVudEluZm8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/Component.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/Employee.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW1wbG95ZWUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/FetchData.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/FileUpload.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmlsZVVwbG9hZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/FocalPerson.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9jYWxQZXJzb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/InstituteInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdGl0dXRlSW5mby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/ProgramInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZ3JhbUluZm8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/Provinces.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvdmluY2VzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/Scholarshipdetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2Nob2xhcnNoaXBkZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/StudentAccount.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudEFjY291bnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/StudentInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudEluZm8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/StudentInstallment.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudEluc3RhbGxtZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/wwwroot/uploads/UploadFile.razor]
+build_metadata.AdditionalFiles.TargetPath = d3d3cm9vdFx1cGxvYWRzXFVwbG9hZEZpbGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-f48mhkscq8
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-dmiwwc8925
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/muham/Downloads/u-NEST-master/NEST/NEST/NEST/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

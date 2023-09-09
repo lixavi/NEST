@@ -1,0 +1,129 @@
+﻿@page "/fileuploads"
+@using System
+@using System.IO
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.Extensions.Logging
+
+@inject IWebHostEnvironment Environment
+
+<h3>Upload Files</h3>
+@category
+<form @onsubmit="OnSubmit">
+    <div class="p-4 bg-light">
+        <select class="form-control mb-2" @bind="@category">
+            <option value="-1" selected>Select Cagegory</option>
+            <option value="HR Details of NEST">HR Details of NEST</option>
+            <option value="Vacant Position of any">Vacant Position of any</option>
+            <option value="Audit Report Internal & External">Audit Report Internal & External</option>
+            <option value="Year wise Approved Budget of NEST">Year wise Approved Budget of NEST</option>
+            <option value="Procurement Plan">Procurement Plan</option>
+            <option value="Tendet Status">Tendet Status</option>
+            <option value="Asset Details">Asset Details</option>
+        </select>
+        <InputText @bind-Value="fileTitle" Placeholder="Enter File Title" class="form-control"></InputText>
+        <div class="mt-2">
+            <InputFile OnChange="@LoadFile" multiple />
+            <button type="submit" class="btn btn-primary btn-sm">Upload </button>
+        </div>
+    </div>
+</form>
+
+
+@if (isLoading)
+{
+    <p>Uploading...</p>
+}
+
+<table class="table table-bordered small">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Files</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in dt.Rows)
+        {
+            <tr>
+                <td> @row["Category"]</td>
+                <td> @row["filename"]</td>
+                <td><a class="btn btn-primary btn-sm" href="uploads/@row["filepath"]" target="_blank">view</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+@code {
+
+    private long maxFileSize = 1024 * 1024 * 10;
+    private int maxAllowedFiles = 3;
+    private bool isLoading;
+    protected EntFile? fileModel { get; set; } = new EntFile();
+    public string? fileTitle { set; get; }
+    public string? path { set; get; }
+    public string? category { set; get; }
+    string Message = "No file(s) selected";
+    IReadOnlyList<IBrowserFile> selectedFiles;
+
+    DataTable dt = new DataTable();
+
+    protected override async Task OnInitializedAsync()
+    {
+        dt = await DALCRUD.ReadTable("GetFiles");
+
+    }
+
+    protected void LoadFile(InputFileChangeEventArgs e)
+    {
+
+        selectedFiles = e.GetMultipleFiles();
+        Message = $"{selectedFiles.Count} file(s) selected";
+        this.StateHasChanged();
+
+    }
+
+    private async void OnSubmit()
+    {
+        if (category != "-1")
+        {
+            foreach (var file in selectedFiles)
+            {
+                if (file.Size <= maxFileSize)
+                {
+                    //var trustedFileNameForFileStorage = Path.GetRandomFileName();
+                    var trustedFileNameForFileStorage = file.Name;
+                    // var trustedFileNameForFileStorage = file.Name;
+                    var uploadsDirectory = Path.Combine(Environment.WebRootPath, "uploads");
+
+                    if (!Directory.Exists(uploadsDirectory))
+                    {
+                        Directory.CreateDirectory(uploadsDirectory);
+                    }
+
+                    //var path = Path.Combine(uploadsDirectory, trustedFileNameForFileStorage);
+                    path = Path.Combine(uploadsDirectory, trustedFileNameForFileStorage);
+                    await using FileStream fs = new(path, FileMode.Create);
+                    await file.OpenReadStream(maxAllowedSize: 1024 * 1024 * 10).CopyToAsync(fs);
+                    fileModel.filepath = file.Name;
+
+                    SqlParameter[] sp =
+              {
+
+            new SqlParameter("@file", fileModel.filepath),
+            new SqlParameter("@filename",fileTitle),
+            new SqlParameter("@Category",category),
+    };
+                    await DALCRUD.CRUD("Savefile", sp);
+                    //await OnInitializedAsync();
+                }
+
+            }
+
+            this.StateHasChanged();
+            nm.NavigateTo("/fileuploads", forceLoad: true);
+        }
+    }
+
+
+}

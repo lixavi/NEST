@@ -1,0 +1,87 @@
+﻿@page "/AddFocalPerson/{InstId}"
+<h3>AddFocalPerson</h3>
+<section class="container">
+    <EditForm Model="_FocalPersonModel" OnSubmit="SaveFocalPerson">
+        <div class="form-group">
+            <label for="exampleInputEmail1">fk_InstituteId</label>
+            <input type="int" class="form-control" id="exampleInput" @bind="_FocalPersonModel!.Fk_InstituteId" disabled>
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" class="form-control" id="exampleInput" placeholder="Enter Name here" @bind="_FocalPersonModel.Name">
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">FatherName</label>
+            <InputText type="text" class="form-control" id="exampleInput" placeholder="Enter Father Name here" @bind-Value="_FocalPersonModel.FatherName" />
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">DOB</label>
+            <InputText type="date" class="form-control" id="exampleInput" @bind-Value="_FocalPersonModel.DOB" />
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Address</label>
+            <input type="text" class="form-control" id="exampleInput" @bind="_FocalPersonModel.Address">
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Phone No</label>
+            <input type="text" class="form-control" id="exampleInput" @bind="_FocalPersonModel.PhoneNo">
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email</label>
+            <input type="text" class="form-control" id="exampleInput" @bind="_FocalPersonModel.Email">
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">CNIC</label>
+            <input type="number" class="form-control" id="exampleInput" @bind="_FocalPersonModel.CNIC">
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">from</label>
+            <InputText type="date" class="form-control" id="exampleInput" @bind-Value="_FocalPersonModel.From" />
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">to</label>
+            <InputText type="date" class="form-control" id="exampleInput" @bind-Value="_FocalPersonModel.To" />
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </EditForm>
+</section>
+@code {
+    protected EntFocalPerson? _FocalPersonModel { get; set; } = new EntFocalPerson();
+    [Parameter] public string? InstId { get; set; }
+    protected override void OnInitialized()
+    {
+        _FocalPersonModel!.Fk_InstituteId = InstId;
+    }
+    protected async Task SaveFocalPerson()
+    {
+        _FocalPersonModel!.Fk_InstituteId = InstId;
+
+        SqlParameter[] sp =
+        {
+            new SqlParameter("@fk_InstituteId",_FocalPersonModel!.Fk_InstituteId),
+            new SqlParameter("@Name",_FocalPersonModel.Name),
+            new SqlParameter("@FatherName", _FocalPersonModel.FatherName),
+            new SqlParameter("@DOB", _FocalPersonModel.DOB),
+            new SqlParameter("@CNIC", _FocalPersonModel.CNIC),
+            new SqlParameter("@Address", _FocalPersonModel.Address),
+            new SqlParameter("@Email", _FocalPersonModel.Email),
+            new SqlParameter("@PhoneNo", _FocalPersonModel.PhoneNo),
+            new SqlParameter("@from", _FocalPersonModel.From),
+            new SqlParameter("@to", _FocalPersonModel.To)
+    };
+        await DALCRUD.CRUD("SP_SaveFocalPerson", sp);
+    }
+}
+
+

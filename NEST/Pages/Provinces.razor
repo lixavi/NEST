@@ -1,0 +1,77 @@
+﻿@page "/province"
+@using ClassLibraryDAL;
+@using ClassLibraryEnt;
+@using System.Data.SqlClient;
+@using System.Data;
+@*@using Newtonsoft.Json;*@
+@using Microsoft.AspNetCore.Mvc;
+@inject NavigationManager nm;
+
+
+
+<section>
+
+    <EditForm Model="province" OnSubmit="SaveProvince">
+        <div class="mb-3">
+            <table>
+                <tr>
+                    <td>
+                          <InputText class="form-control" @bind-Value="province.Province" Placeholder="Province Name" />
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </EditForm>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Province ID</th>
+                <th>Province</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in dt.Rows)
+            {
+                <tr>
+                    <td>@row["pk_ProvinceId"]</td>
+                    <td>@row["Province"]</td>
+
+                </tr>
+                <tr>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+
+
+</section>
+
+@code {
+    protected EntProvince? province { get; set; } = new EntProvince();
+    protected List<EntProvince> ProvinceList;
+
+    DataTable dt = new DataTable();
+    protected async Task SaveProvince()
+    {
+        SqlParameter[] sp =
+        {
+            new SqlParameter("@Province",province.Province)
+    };
+        await DALCRUD.CRUD("SP_SaveProvince", sp);
+        nm.NavigateTo("/province", forceLoad: true);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        dt = await DALCRUD.ReadTable("SP_GetProvince");
+
+    }
+
+
+}

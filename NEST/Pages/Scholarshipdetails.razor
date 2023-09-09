@@ -1,0 +1,186 @@
+﻿@page "/stdscholarship"
+
+<PageTitle>Index</PageTitle>
+
+<div class="d-flex justify-content-center">
+
+    <EditForm Model="stdScholarship" OnSubmit="SavestdScholarship">
+
+        <div class="mb-3">
+
+            <table>
+                <tr>
+                    <td>
+
+                        <select class="form-select" aria-label="Default select example" @onchange="_ProvinceEdit">
+                            <option ID="DropDown">---Select Province---</option>
+                            @foreach (DataRow row in dt1.Rows)
+
+                            {
+                                <option value="@row["pk_ProvinceId"]">@row["Province"]</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <select class="form-select" aria-label="Default select example" @onchange="_InstituteName">
+                        <option ID="DropDown">--- Select Institute ---</option>
+                        @foreach (DataRow row in dt.Rows)
+
+                        {
+                            <option value="@row["pk_InstituteId"]">@row["InstituteName"]</option>
+                        }
+                    </select>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="form-control" id="exampleInput" placeholder="Year" @bind="stdScholarship.Year">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="form-control" id="exampleInput" placeholder="AllocatedSlot" @bind="stdScholarship.AllocatedSlot">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="form-select" aria-label="Default select example" @onchange="_ProgramName">
+                            <option ID="DropDown">--- Select Program ---</option>
+                            @foreach (DataRow row in dt3.Rows)
+
+                            {
+                                <option value="@row["pk_ProgramId"]">@row["Program"]</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="form-control" id="exampleInput" placeholder="AfterISACAllocated" @bind="stdScholarship.AfterISACAllocated">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="form-control" id="exampleInput" placeholder="TotalScolarships" @bind="stdScholarship.TotalScolarships">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="form-control" id="exampleInput" placeholder="AmountSpent" @bind="stdScholarship.AmountSpent">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </EditForm>
+</div>
+
+<section>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th> Province </th>
+                <th> Institute </th>
+                <th> Year </th>
+                <th> Allocated Slot </th>
+                <th> Program Name </th>
+                <th> After ISAC Slots </th>
+                <th> Total Scolarship </th>
+                <th> Amount Spent (Rs)</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in dt2.Rows)
+            {
+                <tr>
+                    <td>@row["fk_ProvinceId"]</td>
+                    <td>@row["fk_InstituteId"]</td>
+                    <td>@row["Year"]</td>
+                    <td>@row["AllocatedSlot"]</td>
+                    <td>@row["ProgramID"]</td>
+                    <td>@row["TotalScolarships"]</td>
+                    <td>@row["AfterISACAllocated"]</td>
+                    <td>@row["AmountSpent"] Rs</td>
+                   
+
+                </tr>
+
+            }
+
+
+        </tbody>
+    </table>
+
+
+</section>
+
+@code {
+    [Parameter] public string? STDID { get; set; }
+    public string? InstallmentEdit { get; set; }
+    protected EntScholarship? stdScholarship { get; set; } = new EntScholarship();
+    protected List<EntScholarship> ScholarshipList;
+    protected List<EntProvince> ProvinceList;
+    protected List<EntInstituteInfo> InstituteList;
+    private string? ProvinceEdit { get; set; }
+    private string? instituteName { get; set; }
+    private string? ProgramName { get; set; }
+
+    DataTable dt = new DataTable();
+    DataTable dt1 = new DataTable();
+    DataTable dt2 = new DataTable();
+    DataTable dt3 = new DataTable();
+
+    private void _InstallmentEdit(ChangeEventArgs e)
+    {
+        InstallmentEdit = e.Value as string;
+    }
+
+    private void _ProvinceEdit(ChangeEventArgs e)
+    {
+        ProvinceEdit = e.Value as string;
+    }
+    private void _InstituteName(ChangeEventArgs e)
+    {
+        instituteName = e.Value as string;
+    }
+    private void _ProgramName(ChangeEventArgs e)
+    {
+        ProgramName = e.Value as string;
+    }
+
+    protected async Task SavestdScholarship()
+    {
+
+        SqlParameter[] sp =
+        {
+                new SqlParameter("@fk_ProvinceId",ProvinceEdit),
+                new SqlParameter("@fk_InstituteId",instituteName),
+                new SqlParameter("@Year",stdScholarship.Year),
+                new SqlParameter("@AllocatedSlot",stdScholarship.AllocatedSlot),
+                new SqlParameter("@ProgramID",ProgramName),
+                new SqlParameter("@TotalScolarships",stdScholarship.TotalScolarships),
+                new SqlParameter("@AfterISACAllocated",stdScholarship.AfterISACAllocated),
+                new SqlParameter("@AmountSpent",stdScholarship.AmountSpent)
+
+    };
+        await DALCRUD.CRUD("SP_SaveStudentScholarship", sp);
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        dt1 = await DALCRUD.ReadTable("SP_GetProvince");
+        dt = await DALCRUD.ReadTable("GetInstituteInfo");
+        dt2 = await DALCRUD.ReadTable("GetScholarshipInfo");
+        dt3 = await DALCRUD.ReadTable("SP_GetDegreeInfo");
+
+    }
+
+}

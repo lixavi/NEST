@@ -1,0 +1,101 @@
+﻿@page "/stdaccount/{StdID}"
+@using ClassLibraryDAL;
+@using ClassLibraryEnt;
+
+
+<EditForm Model="_StdAccountModel" OnSubmit="SaveStdAccount">
+
+    <div class="mb-3">
+
+        <table>
+            <tr>
+                <td>
+                    <input type="text" disabled class="form-control" id="exampleInput" placeholder="Enter Name here" @bind="_StdAccountModel.fk_StudentId">
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="exampleInput" placeholder="Enter Account Title" @bind="_StdAccountModel.AcTitle">
+                </td>
+                <td>
+                    <InputText type="text" class="form-control" id="exampleInput" placeholder="Enter IBAN" @bind-Value="_StdAccountModel.IBANNo" />
+                </td>
+           
+               
+                <td>
+                    <input type="text" class="form-control" id="exampleInput" placeholder="Enter Bank Name" @bind="_StdAccountModel.BankName">
+                </td>
+         
+                <td>
+                    <input type="number" class="form-control" id="exampleInput" placeholder="Enter Amount" @bind="_StdAccountModel.Amount">
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </div>   
+</EditForm>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>fk_StudentId</th>
+            <th>AccTitle</th>
+            <th>IBANNo</th>
+            <th>BankName</th>
+            <th>Amount</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in dt.Rows)
+        {
+            <tr>
+                <td>@row["fk_StudentId"]</td>
+
+                <td>@row["AcTitle"]</td>
+                <td>@row["IBANNo"]</td>
+                <td>@row["BankName"]</td>
+                <td>@row["Amount"]</td>
+                
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+@code {
+    protected EntStudentAccount? _StdAccountModel { get; set; } = new EntStudentAccount();
+    [Parameter] public string StdID { get; set; }
+
+    DataTable dt = new DataTable();
+    protected override void OnInitialized()
+    {
+        _StdAccountModel.fk_StudentId = int.Parse(StdID);
+    }
+
+    protected async Task SaveStdAccount()
+    {
+        _StdAccountModel.fk_StudentId = int.Parse(StdID);
+        SqlParameter[] sp =
+        {
+
+            new SqlParameter("fk_StudentId",_StdAccountModel.fk_StudentId),
+            new SqlParameter("@AccTitle", _StdAccountModel.AcTitle),
+            new SqlParameter("@IBANNo", _StdAccountModel.IBANNo),
+            new SqlParameter("@BankName", _StdAccountModel.BankName),
+            new SqlParameter("@Amount", _StdAccountModel.Amount),
+    };
+        await DALCRUD.CRUD("SP_SaveStdAccount", sp);
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        dt = await DALCRUD.ReadTable("SP_GetStdAccount");
+
+    }
+
+
+
+}

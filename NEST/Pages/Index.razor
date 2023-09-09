@@ -1,0 +1,92 @@
+﻿@page "/"
+@using ClassLibraryDAL;
+@using ClassLibraryEnt;
+
+@*@using Newtonsoft.Json;*@
+@using Microsoft.AspNetCore.Mvc;
+
+
+<PageTitle>DASHBOARD</PageTitle>
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>
+<section>
+    <div class="container mt-4">
+        <div class="row">
+              @foreach (DataRow row in dt.Rows)
+        {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card bg-warning  text-light">
+                        <div class="card-body">
+                            <h5 class="card-title">Province</h5>
+                            <p class="card-text">@row["PROVINCEINFO"]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card bg-success text-light">
+                        <div class="card-body ">
+                            <h5 class="card-title">Institutes</h5>
+                            <p class="card-text">@row["INSTCOUNT"]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card bg-danger  text-light">
+                        <div class="card-body">
+                            <h5 class="card-title">Focal Person</h5>
+                            <p class="card-text">@row["FOCALCOUNT"]</p>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card bg-primary text-light">
+                    <div class="card-body ">
+                        <h5 class="card-title">Students</h5>
+                            <p class="card-text">@row["STDCOUNT"]</p>
+                    </div>
+                </div>
+            </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card bg-secondary text-light">
+                        <div class="card-body ">
+                            <h5 class="card-title">Employees</h5>
+                            <p class="card-text">@row["EMPCOUNT"]</p>
+                        </div>
+                    </div>
+                </div>
+             
+        
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card bg-dark   text-light">
+                    <div class="card-body">
+                        <h5 class="card-title">Programs</h5>
+                            <p class="card-text">@row["PROGRAMINFO"]</p>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+  
+</section>
+
+
+@code {
+    DataTable dt = new DataTable();
+
+    protected override async Task OnInitializedAsync()
+    {
+        dt = await DALCRUD.ReadTable("SP_GetTableCounts");
+
+    }
+    
+
+}

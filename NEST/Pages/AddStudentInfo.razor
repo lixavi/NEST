@@ -1,0 +1,339 @@
+﻿@page "/AddStudentInfo/{InstId}"
+<h3>AddStudentInfo</h3>
+
+<a href="studentinfo/@InstId" class="btn btn-primary ">Go Back</a>
+
+<section class="container">
+    <EditForm Model="studentsinfo" OnSubmit="SaveStudentInfo">
+        <div class="mb-3">
+            <table>
+                <tr>
+                    <td>
+                        <label for="CityCode" class="form-label">Institute ID</label>
+                        <input type="int" class="form-control" id="exampleInput" @bind="studentsinfo!.Fk_InstituteId" disabled required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="CityCode" class="form-label">Name</label>
+                        <InputText class="form-control" @bind-Value="studentsinfo.Name" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="CityCode" class="form-label">FatherName</label>
+                        <InputText class="form-control" @bind-Value="studentsinfo.FatherName" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="CityCode" class="form-label">CNIC</label>
+                        <InputText class="form-control" @bind-Value="studentsinfo.CNIC" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="CityCode" class="form-label">PhoneNo</label>
+                        <InputText class="form-control" @bind-Value="studentsinfo.PhoneNo" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                        <label for="CityCode" class="form-label">Gender</label>
+                        <select class="form-select" aria-label="Default select example" @onchange="_GenderEdit" required>
+                            <option ID="DropDown">---Select Gender---</option>
+
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="CityCode" class="form-label">Maritial</label>
+
+                        <select class="form-select" aria-label="Default select example" @onchange="_MaritialEdit" required>
+                            <option ID="DropDown">---Select Maritial Status---</option>
+
+                            <option value="Married">Married</option>
+                            <option value="Un-Married">Un-Married</option>
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="CityCode" class="form-label">Religion</label>
+                        <select class="form-select" aria-label="Default select example" @onchange="_ReligionEdit" required>
+                            <option ID="DropDown">---Select Religion---</option>
+
+                            <option value="Muslim">Muslim</option>
+                            <option value="Non-Muslim">Non-Muslim</option>
+
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="CityCode" class="form-label">Email</label>
+                        <InputText class="form-control" @bind-Value="studentsinfo.Email" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+
+                        <label for="CityCode" class="form-label">Country</label>
+                        <select class="form-select" aria-label="Default select example" @onchange="_CountryEdit" required>
+                            <option ID="DropDown">---Select Country---</option>
+
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="India">India</option>
+                            <option value="others">Other</option>
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="CityCode" class="form-label">DomicileProvince</label>
+                        <select class="form-select" aria-label="Default select example" @onchange="_SelectProvince" required>
+                            <option ID="DropDown">---Select province---</option>
+
+                            @foreach (var province in ProvincesAndDistricts.Keys)
+                            {
+                                <option value="@province">@province</option>
+                            }
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="CityCode" class="form-label">DomicileDistrict</label>
+                        <select class="form-select" aria-label="Default select example" @bind="selectedDistrict" required>
+                            <option ID="DropDown">---Select District---</option>
+
+                            @foreach (var district in districtsInSelectedProvince)
+                            {
+                                <option value="@district">@district</option>
+                            }
+
+                        </select>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <label for="CityCode" class="form-label">StdDisable</label>
+                        <select class="form-select" aria-label="Default select example" @onchange="_DisableEdit" required>
+                            <option ID="DropDown">---Select Status---</option>
+
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    @if (DisableEdit == "Yes")
+                    {
+                        <td>
+                            <label for="CityCode" class="form-label">DisableDisc</label>
+                            <InputText class="form-control" @bind-Value="studentsinfo.DisableDisc" />
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+
+                        <label for="CityCode" class="form-label">DivorceParents</label>
+                        <select class="form-select" aria-label="Default select example" @onchange="_DivorceParents" required>
+                            <option ID="DropDown">---Select Status---</option>
+
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="CityCode" class="form-label">Orphan</label>
+                        <select class="form-select" aria-label="Default select example" @onchange="_Orphan" required>
+                            <option ID="DropDown">---Select Status---</option>
+
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+
+
+                        </select>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        @if (Orphan == "Yes")
+                        {
+                            <label for="CityCode" class="form-label">OrphanDesc</label>
+                            <InputText class="form-control" @bind-Value="studentsinfo.OrphanDesc" />
+                        }
+                    </td>
+                </tr>
+            </table>
+
+            <button type="submit" class="btn btn-primary mt-3">Save</button>
+
+        </div>
+    </EditForm>
+</section>
+
+
+@code {
+
+    [Parameter] public string? InstId { get; set; }
+
+    private Dictionary<string, List<string>> ProvincesAndDistricts = new Dictionary<string, List<string>>
+        {
+            { "Punjab", new List<string> { "Lahore", "Faisalabad", "Multan", "Rawalpindi" } },
+            { "Sindh", new List<string> { "Karachi", "Hyderabad", "Sukkur" } },
+            { "Khyber Pakhtunkhwa", new List<string> { "Peshawar", "Abbottabad", "Mardan" } },
+            { "Balochistan", new List<string> { "Quetta", "Gwadar", "Turbat" } },
+            // Add more provinces and districts here
+        };
+    private List<string> districtsInSelectedProvince = new List<string>();
+
+    // Selected values
+    private string? selectedDistrict = "";
+    private string? selectedProvince = "";
+    private void UpdateDistricts()
+    {
+        if (ProvincesAndDistricts.ContainsKey(selectedProvince))
+        {
+            districtsInSelectedProvince = ProvincesAndDistricts[selectedProvince];
+        }
+        else
+        {
+            districtsInSelectedProvince = new List<string>();
+        }
+        selectedDistrict = districtsInSelectedProvince.FirstOrDefault();
+    }
+
+    private void OnSelectedProvinceChanged()
+    {
+        UpdateDistricts();
+    }
+
+    protected override void OnInitialized()
+    {
+        studentsinfo!.Fk_InstituteId = InstId;
+        UpdateDistricts();
+    }
+
+
+    private void _SelectProvince(ChangeEventArgs e)
+    {
+        selectedProvince = e.Value as string;
+        UpdateDistricts();
+    }
+
+
+    protected EntStudentInfo? studentsinfo { get; set; } = new EntStudentInfo();
+    protected List<EntStudentInfo>? InstituteList;
+
+    public string? MaritialEdit { get; set; }
+    public string? Districts { get; set; }
+    public string? DivorceParents { get; set; }
+    public string? Orphan { get; set; }
+    private void _DivorceParents(ChangeEventArgs e)
+    {
+        DivorceParents = e.Value as string;
+    }
+    private void _Orphan(ChangeEventArgs e)
+    {
+        Orphan = e.Value as string;
+    }
+    private void _Districts(ChangeEventArgs e)
+    {
+        Districts = e.Value as string;
+    }
+    private void _MaritialEdit(ChangeEventArgs e)
+    {
+        MaritialEdit = e.Value as string;
+    }
+
+    public string? ReligionEdit { get; set; }
+
+    private void _ReligionEdit(ChangeEventArgs e)
+    {
+        ReligionEdit = e.Value as string;
+    }
+
+    public string? CountryEdit { get; set; }
+
+    private void _CountryEdit(ChangeEventArgs e)
+    {
+        CountryEdit = e.Value as string;
+    }
+
+
+    public string? DisableEdit { get; set; }
+
+    private void _DisableEdit(ChangeEventArgs e)
+    {
+        DisableEdit = e.Value as string;
+    }
+
+    public string? GenderEdit { get; set; }
+
+    private void _GenderEdit(ChangeEventArgs e)
+    {
+        GenderEdit = e.Value as string;
+    }
+
+
+    DataTable dt = new DataTable();
+    protected async Task SaveStudentInfo()
+    {
+        studentsinfo!.Maritial = MaritialEdit;
+        studentsinfo.Religion = ReligionEdit;
+        studentsinfo.Country = CountryEdit;
+        studentsinfo.DomicileProvince = selectedProvince;
+        studentsinfo.DomicileDistrict = selectedDistrict;
+        studentsinfo.StdDisable = DisableEdit;
+        studentsinfo.Gender = GenderEdit;
+        studentsinfo.DivorceParents = DivorceParents;
+        studentsinfo.Orphan = Orphan;
+        SqlParameter[] sp =
+        {
+            new SqlParameter("fk_InstituteId",InstId),
+            new SqlParameter("Name",studentsinfo.Name),
+            new SqlParameter("Gender",studentsinfo.Gender),
+            new SqlParameter("Maritial",studentsinfo.Maritial),
+            new SqlParameter("Religion",studentsinfo.Religion),
+            new SqlParameter("FatherName",studentsinfo.FatherName),
+            new SqlParameter("CNIC",studentsinfo.CNIC),
+            new SqlParameter("PhoneNo",studentsinfo.PhoneNo),
+            new SqlParameter("Email",studentsinfo.Email),
+            new SqlParameter("Country",studentsinfo.Country),
+            new SqlParameter("DomicileDistrict",studentsinfo.DomicileDistrict),
+            new SqlParameter("DomicileProvince",studentsinfo.DomicileProvince),
+            new SqlParameter("StdDisable",studentsinfo.StdDisable),
+            new SqlParameter("DisableDisc",studentsinfo.DisableDisc),
+            new SqlParameter("DivorceParents",studentsinfo.DivorceParents),
+            new SqlParameter("Orphan",studentsinfo.Orphan),
+            new SqlParameter("OrphanDesc",studentsinfo.OrphanDesc),
+
+    };
+        await DALCRUD.CRUD("SP_SaveStudentInfo", sp);
+
+
+    }
+
+
+}
