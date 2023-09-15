@@ -6033,11 +6033,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\muham\\Downloads\\u-NEST-master\\NEST\\NEST\\NEST\\NEST.csproj",
+      "projectUniqueName": "C:\\Users\\muham\\Downloads\\N\\NEST\\NEST\\NEST.csproj",
       "projectName": "NEST",
-      "projectPath": "C:\\Users\\muham\\Downloads\\u-NEST-master\\NEST\\NEST\\NEST\\NEST.csproj",
+      "projectPath": "C:\\Users\\muham\\Downloads\\N\\NEST\\NEST\\NEST.csproj",
       "packagesPath": "C:\\Users\\muham\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\muham\\Downloads\\u-NEST-master\\NEST\\NEST\\NEST\\obj\\",
+      "outputPath": "C:\\Users\\muham\\Downloads\\N\\NEST\\NEST\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\muham\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6054,11 +6054,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\muham\\Downloads\\u-NEST-master\\NEST\\NEST\\ClassLibraryDAL\\ClassLibraryDAL.csproj": {
-              "projectPath": "C:\\Users\\muham\\Downloads\\u-NEST-master\\NEST\\NEST\\ClassLibraryDAL\\ClassLibraryDAL.csproj"
+            "C:\\Users\\muham\\Downloads\\N\\NEST\\ClassLibraryDAL\\ClassLibraryDAL.csproj": {
+              "projectPath": "C:\\Users\\muham\\Downloads\\N\\NEST\\ClassLibraryDAL\\ClassLibraryDAL.csproj"
             },
-            "C:\\Users\\muham\\Downloads\\u-NEST-master\\NEST\\NEST\\CLassLibraryEntities\\CLassLibraryEntities.csproj": {
-              "projectPath": "C:\\Users\\muham\\Downloads\\u-NEST-master\\NEST\\NEST\\CLassLibraryEntities\\CLassLibraryEntities.csproj"
+            "C:\\Users\\muham\\Downloads\\N\\NEST\\CLassLibraryEntities\\CLassLibraryEntities.csproj": {
+              "projectPath": "C:\\Users\\muham\\Downloads\\N\\NEST\\CLassLibraryEntities\\CLassLibraryEntities.csproj"
             }
           }
         }

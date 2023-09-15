@@ -1,45 +1,42 @@
 ﻿@page "/programinfo"
-<h3>ProgramInfo</h3>
+
 
 
 <section class="container ">
-    <div class="d-flex justify-content-center">
+
 
    
     <EditForm Model="DegreeInfo" OnSubmit="SaveDegreeInfo">
         <div class="mb-3">
             <table>
                 <tr>
-                    <td>
-                        <label for="CityCode" class="form-label">Program ID</label>
-                        <input type="int" class="form-control" id="exampleInput" @bind="DegreeInfo.ProgramId" disabled>
-                    </td>
-                </tr>
-                <tr>
+               
+               
                     <td>
                         <label for="CityCode" class="form-label">Program</label>
                         <InputText class="form-control" @bind-Value="DegreeInfo.Program" required />
                     </td>
-                </tr>
-                <tr>
+               
+               
                     <td>
-                        <label for="CityCode" class="form-label">Program Duration</label>
-                        <InputText class="form-control" @bind-Value="DegreeInfo.ProgramDuration" required />
+                        <label for="CityCode" class="form-label">Program Duration (Semester)</label>
+                        <InputText class="form-control" @bind-Value="DegreeInfo.ProgramDuration"  required />
                     </td>
-                </tr>
-                <tr>
+                
+                
                     <td>
                         <label for="CityCode" class="form-label">Discipline</label>
                         <InputText class="form-control" @bind-Value="DegreeInfo.Discipline" required />
                     </td>
-                </tr>
-            </table>
-
-            <button type="submit" class="btn btn-primary mt-3">Save</button>
-
+              
+                     <td>
+            <button type="submit" class="btn btn-primary mt-4">Save</button>
+            </td>
+                    </tr>
+                </table>
         </div>
     </EditForm>
-    </div>
+  
 </section>
 
 
@@ -109,7 +106,8 @@
             }
             <Tag Color="@color">@tag</Tag>
         }
-    </span>;
+            </span>
+    ;
 
             return;
         }
@@ -127,14 +125,14 @@
     {
         SqlParameter[] sp =
         {
-            
+
             new SqlParameter("Program",DegreeInfo.Program),
             new SqlParameter("ProgramDuration",DegreeInfo.ProgramDuration),
             new SqlParameter("Discipline",DegreeInfo.Discipline)
 
     };
         await DALCRUD.CRUD("SP_SaveProgramInfo", sp);
-
+        nm.NavigateTo("/programinfo", forceLoad: true);
 
     }
 
