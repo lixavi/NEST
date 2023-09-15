@@ -56,12 +56,22 @@
 
                         <option value="Paid">Paid</option>
                         <option value="Inprocess">In Process</option>
-                        
+
 
                     </select>
                 </td>
                 <td>
-                    <input type="text" class="form-control" id="exampleInput" placeholder="Checque Number" @bind="stdInstallment.Checqueno">
+
+                    <select class="form-select" aria-label="Default select example" @onchange="_BankTitleEdit">
+                        <option ID="DropDown">---Select Bank Title---</option>
+                        @foreach (DataRow row in dt1.Rows)
+
+                        {
+
+                            <option value="@row["AcTitle"]">@row["AcTitle"]</option>
+
+                        }
+                    </select>
                 </td>
 
                 <td>
@@ -82,9 +92,9 @@
                 <th> Installment Number </th>
                 <th> Installment Duration </th>
                 <th> Installment Amount </th>
-                <th> Checque Number </th>
+                <th> BankTitle </th>
                 <th> Status </th>
-              
+
             </tr>
         </thead>
         <tbody>
@@ -95,9 +105,9 @@
                     <td>@row["Installment"]</td>
                     <td>@row["InstallmentDuration"] month</td>
                     <td>@row["InstallmentAmount"] Rs</td>
-                    <td>@row["Checqueno"]</td>
+                    <td>@row["BankTitle"]</td>
                     <td>@row["Status"]</td>
-                  
+
 
                 </tr>
 
@@ -117,10 +127,12 @@
     public string? InstallmentEdit { get; set; }
     public string? InstallmentDurationEdit { get; set; }
     public string? InstallmentStatusEdit { get; set; }
+    public string? BankTitleEdit { get; set; }
     protected EntStudentInstallments? stdInstallment { get; set; } = new EntStudentInstallments();
     protected List<EntStudentInstallments> ProvinceList;
 
     DataTable dt = new DataTable();
+    DataTable dt1 = new DataTable();
 
     private void _InstallmentEdit(ChangeEventArgs e)
     {
@@ -133,6 +145,10 @@
     private void _InstallmentStatusEdit(ChangeEventArgs e)
     {
         InstallmentStatusEdit = e.Value as string;
+    }
+    private void _BankTitleEdit(ChangeEventArgs e)
+    {
+        BankTitleEdit = e.Value as string;
     }
 
 
@@ -148,12 +164,13 @@
             new SqlParameter("@Installment",stdInstallment.Installment),
             new SqlParameter("@InstallmentDuration",stdInstallment.InstallmentDuration),
             new SqlParameter("@Status",stdInstallment.Status),
-            new SqlParameter("@Checqueno",stdInstallment.Checqueno),
+            new SqlParameter("@BankTitle",BankTitleEdit),
             new SqlParameter("@InstallmentAmount",stdInstallment.InstallmentAmount)
 
-            
+
     };
         await DALCRUD.CRUD("SP_SaveStudentInstallments", sp);
+        await OnInitializedAsync();
 
     }
     protected override void OnInitialized()
@@ -164,10 +181,23 @@
 
     protected override async Task OnInitializedAsync()
     {
-        dt = await DALCRUD.ReadTable("SP_GetStudentInstallmentInfo");
+        SqlParameter[] sp1 =
+       {
+            new SqlParameter("@fk_StudentId",STDID),
+
+    };
+        dt = await DALCRUD.ReadDataSpecific("SP_GetStudentInstallmentInfo", sp1);
+
+
+        SqlParameter[] sp2 =
+       {
+            new SqlParameter("@fk_StudentId",STDID),
+
+    };
+
+        dt1 = await DALCRUD.ReadDataSpecific("SP_GetStudentBankTitle", sp2);
 
     }
-
 
 
 }

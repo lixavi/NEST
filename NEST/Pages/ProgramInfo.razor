@@ -5,38 +5,38 @@
 <section class="container ">
 
 
-   
+
     <EditForm Model="DegreeInfo" OnSubmit="SaveDegreeInfo">
         <div class="mb-3">
             <table>
                 <tr>
-               
-               
+
+
                     <td>
                         <label for="CityCode" class="form-label">Program</label>
                         <InputText class="form-control" @bind-Value="DegreeInfo.Program" required />
                     </td>
-               
-               
+
+
                     <td>
                         <label for="CityCode" class="form-label">Program Duration (Semester)</label>
-                        <InputText class="form-control" @bind-Value="DegreeInfo.ProgramDuration"  required />
+                        <InputText class="form-control" @bind-Value="DegreeInfo.ProgramDuration" required />
                     </td>
-                
-                
+
+
                     <td>
                         <label for="CityCode" class="form-label">Discipline</label>
                         <InputText class="form-control" @bind-Value="DegreeInfo.Discipline" required />
                     </td>
-              
-                     <td>
-            <button type="submit" class="btn btn-primary mt-4">Save</button>
-            </td>
-                    </tr>
-                </table>
+
+                    <td>
+                        <button type="submit" class="btn btn-primary mt-4">Save</button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </EditForm>
-  
+
 </section>
 
 
@@ -75,13 +75,13 @@
         {
             EntDegreeProgramInfo employee = new EntDegreeProgramInfo
                     {
-                        ProgramId = row["pk_ProgramId"].ToString(), 
+                        ProgramId = row["pk_ProgramId"].ToString(),
                         Program = row["Program"].ToString(),
                         ProgramDuration = row["ProgramDuration"].ToString(),
 
                         Discipline = row["Discipline"].ToString(),
-                       
-                        
+
+
                     };
 
             degrees.Add(employee);
@@ -106,7 +106,7 @@
             }
             <Tag Color="@color">@tag</Tag>
         }
-            </span>
+    </span>
     ;
 
             return;

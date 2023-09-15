@@ -54,7 +54,7 @@
                         </select>
                     </td>
                 </tr>
-                <tr>
+              @*   <tr>
                     <td>
                         <input type="text" class="form-control" id="exampleInput" placeholder="AfterISACAllocated" @bind="stdScholarship.AfterISACAllocated">
                     </td>
@@ -68,7 +68,7 @@
                     <td>
                         <input type="text" class="form-control" id="exampleInput" placeholder="AmountSpent" @bind="stdScholarship.AmountSpent">
                     </td>
-                </tr>
+                </tr> *@
 
                 <tr>
                     <td>
@@ -90,9 +90,10 @@
                 <th> Year </th>
                 <th> Allocated Slot </th>
                 <th> Program Name </th>
-                <th> After ISAC Slots </th>
+                <th> Action </th>
+          @*       <th> After ISAC Slots </th>
                 <th> Total Scolarship </th>
-                <th> Amount Spent (Rs)</th>
+                <th> Amount Spent (Rs)</th> *@
 
             </tr>
         </thead>
@@ -105,9 +106,10 @@
                     <td>@row["Year"]</td>
                     <td>@row["AllocatedSlot"]</td>
                     <td>@row["ProgramID"]</td>
-                    <td>@row["TotalScolarships"]</td>
+   @*                  <td>@row["TotalScolarships"]</td>
                     <td>@row["AfterISACAllocated"]</td>
-                    <td>@row["AmountSpent"] Rs</td>
+                    <td>@row["AmountSpent"] Rs</td> *@
+                    <a class="btn btn-warning" href="#">After ISAC</a>
                    
 
                 </tr>
@@ -165,12 +167,14 @@
                 new SqlParameter("@Year",stdScholarship.Year),
                 new SqlParameter("@AllocatedSlot",stdScholarship.AllocatedSlot),
                 new SqlParameter("@ProgramID",ProgramName),
-                new SqlParameter("@TotalScolarships",stdScholarship.TotalScolarships),
-                new SqlParameter("@AfterISACAllocated",stdScholarship.AfterISACAllocated),
-                new SqlParameter("@AmountSpent",stdScholarship.AmountSpent)
+            // new SqlParameter("@TotalScolarships",stdScholarship.TotalScolarships),
+            // new SqlParameter("@AfterISACAllocated",stdScholarship.AfterISACAllocated),
+            // new SqlParameter("@AmountSpent",stdScholarship.AmountSpent)
 
     };
         await DALCRUD.CRUD("SP_SaveStudentScholarship", sp);
+        await OnInitializedAsync();
+
 
     }
 
