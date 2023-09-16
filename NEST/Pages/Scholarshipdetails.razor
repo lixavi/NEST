@@ -21,8 +21,7 @@
                             }
                         </select>
                     </td>
-                </tr>
-                <tr>
+               
                     <select class="form-select" aria-label="Default select example" @onchange="_InstituteName">
                         <option ID="DropDown">--- Select Institute ---</option>
                         @foreach (DataRow row in dt.Rows)
@@ -31,18 +30,15 @@
                             <option value="@row["pk_InstituteId"]">@row["InstituteName"]</option>
                         }
                     </select>
-                </tr>
-                <tr>
+                
                     <td>
                         <input type="text" class="form-control" id="exampleInput" placeholder="Year" @bind="stdScholarship.Year">
                     </td>
-                </tr>
-                <tr>
+                
                     <td>
                         <input type="text" class="form-control" id="exampleInput" placeholder="AllocatedSlot" @bind="stdScholarship.AllocatedSlot">
                     </td>
-                </tr>
-                <tr>
+               
                     <td>
                         <select class="form-select" aria-label="Default select example" @onchange="_ProgramName">
                             <option ID="DropDown">--- Select Program ---</option>
@@ -51,9 +47,7 @@
                             {
                                 <option value="@row["pk_ProgramId"]">@row["Program"]</option>
                             }
-                        </select>
-                    </td>
-                </tr>
+                        </select></td>
               @*   <tr>
                     <td>
                         <input type="text" class="form-control" id="exampleInput" placeholder="AfterISACAllocated" @bind="stdScholarship.AfterISACAllocated">
@@ -70,7 +64,7 @@
                     </td>
                 </tr> *@
 
-                <tr>
+               
                     <td>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </td>
