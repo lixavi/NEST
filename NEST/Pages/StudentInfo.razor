@@ -1,4 +1,4 @@
-﻿@page "/studentinfo/{InstId}"
+﻿@page "/studentinfo/{InstId:int}"
 @using ClassLibraryDAL;
 @using ClassLibraryEnt;
 @using System.ComponentModel
@@ -42,12 +42,12 @@
 @code {
     List<EntStudentInfo> studentlist = new List<EntStudentInfo>();
     EntStudentInfo[] data = new EntStudentInfo[] { };
-    [Parameter] public string? InstId { get; set; }
+    [Parameter] public int InstId { get; set; }
     protected EntStudentInfo? studentsinfo { get; set; } = new EntStudentInfo();
     DataTable dt = new DataTable();
     protected override async Task OnInitializedAsync()
     {
-        studentsinfo!.Fk_InstituteId = InstId;
+        studentsinfo!.Fk_InstituteId = InstId.ToString();
 
         SqlParameter[] sp1 =
         {

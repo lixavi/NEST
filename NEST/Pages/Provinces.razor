@@ -31,6 +31,7 @@
             <tr>
                 <th>Province ID</th>
                 <th>Province</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -39,7 +40,9 @@
                 <tr>
                     <td>@row["pk_ProvinceId"]</td>
                     <td>@row["Province"]</td>
-
+                    <td>
+                        <button class="btn btn-warning" @onclick='(()=>deleteProvince(row["pk_ProvinceId"].ToString()))'>Delete</button>
+                    </td>
                 </tr>
                 <tr>
                 </tr>
@@ -71,6 +74,19 @@
     {
         dt = await DALCRUD.ReadTable("SP_GetProvince");
 
+    }
+    protected override async void OnInitialized()
+    {
+        await OnInitializedAsync();
+    }
+    private void deleteProvince(string id)
+    {
+        SqlParameter[] sp =
+        {
+        new SqlParameter("@pk_ProvinceId", id)
+    };
+        DALCRUD.CRUD("SP_deleteProvince", sp);
+        OnInitialized();
     }
 
 

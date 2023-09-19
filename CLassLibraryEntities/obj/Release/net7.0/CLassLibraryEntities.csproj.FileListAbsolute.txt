@@ -1,0 +1,12 @@
+C:\Users\muham\Downloads\NewNEST\NewNEST\CLassLibraryEntities\bin\Release\net7.0\CLassLibraryEntities.deps.json
+C:\Users\muham\Downloads\NewNEST\NewNEST\CLassLibraryEntities\bin\Release\net7.0\CLassLibraryEntities.dll
+C:\Users\muham\Downloads\NewNEST\NewNEST\CLassLibraryEntities\bin\Release\net7.0\CLassLibraryEntities.pdb
+C:\Users\muham\Downloads\NewNEST\NewNEST\CLassLibraryEntities\obj\Release\net7.0\CLassLibraryEntities.csproj.AssemblyReference.cache
+C:\Users\muham\Downloads\NewNEST\NewNEST\CLassLibraryEntities\obj\Release\net7.0\CLassLibraryEntities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muham\Downloads\NewNEST\NewNEST\CLassLibraryEntities\obj\Release\net7.0\CLassLibraryEntities.AssemblyInfoInputs.cache
+C:\Users\muham\Downloads\NewNEST\NewNEST\CLassLibraryEntities\obj\Release\net7.0\CLassLibraryEntities.AssemblyInfo.cs
+C:\Users\muham\Downloads\NewNEST\NewNEST\CLassLibraryEntities\obj\Release\net7.0\CLassLibraryEntities.csproj.CoreCompileInputs.cache
+C:\Users\muham\Downloads\NewNEST\NewNEST\CLassLibraryEntities\obj\Release\net7.0\CLassLibraryEntities.dll
+C:\Users\muham\Downloads\NewNEST\NewNEST\CLassLibraryEntities\obj\Release\net7.0\refint\CLassLibraryEntities.dll
+C:\Users\muham\Downloads\NewNEST\NewNEST\CLassLibraryEntities\obj\Release\net7.0\CLassLibraryEntities.pdb
+C:\Users\muham\Downloads\NewNEST\NewNEST\CLassLibraryEntities\obj\Release\net7.0\ref\CLassLibraryEntities.dll

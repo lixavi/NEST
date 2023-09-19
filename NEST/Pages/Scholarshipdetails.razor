@@ -21,7 +21,7 @@
                             }
                         </select>
                     </td>
-               
+
                     <select class="form-select" aria-label="Default select example" @onchange="_InstituteName">
                         <option ID="DropDown">--- Select Institute ---</option>
                         @foreach (DataRow row in dt.Rows)
@@ -30,15 +30,15 @@
                             <option value="@row["pk_InstituteId"]">@row["InstituteName"]</option>
                         }
                     </select>
-                
+
                     <td>
                         <input type="text" class="form-control" id="exampleInput" placeholder="Year" @bind="stdScholarship.Year">
                     </td>
-                
+
                     <td>
                         <input type="text" class="form-control" id="exampleInput" placeholder="AllocatedSlot" @bind="stdScholarship.AllocatedSlot">
                     </td>
-               
+
                     <td>
                         <select class="form-select" aria-label="Default select example" @onchange="_ProgramName">
                             <option ID="DropDown">--- Select Program ---</option>
@@ -47,24 +47,25 @@
                             {
                                 <option value="@row["pk_ProgramId"]">@row["Program"]</option>
                             }
-                        </select></td>
-              @*   <tr>
-                    <td>
-                        <input type="text" class="form-control" id="exampleInput" placeholder="AfterISACAllocated" @bind="stdScholarship.AfterISACAllocated">
+                        </select>
                     </td>
-                </tr>
-                <tr>
+                    @*   <tr>
                     <td>
-                        <input type="text" class="form-control" id="exampleInput" placeholder="TotalScolarships" @bind="stdScholarship.TotalScolarships">
+                    <input type="text" class="form-control" id="exampleInput" placeholder="AfterISACAllocated" @bind="stdScholarship.AfterISACAllocated">
                     </td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                     <td>
-                        <input type="text" class="form-control" id="exampleInput" placeholder="AmountSpent" @bind="stdScholarship.AmountSpent">
+                    <input type="text" class="form-control" id="exampleInput" placeholder="TotalScolarships" @bind="stdScholarship.TotalScolarships">
                     </td>
-                </tr> *@
+                    </tr>
+                    <tr>
+                    <td>
+                    <input type="text" class="form-control" id="exampleInput" placeholder="AmountSpent" @bind="stdScholarship.AmountSpent">
+                    </td>
+                    </tr> *@
 
-               
+
                     <td>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </td>
@@ -73,6 +74,7 @@
         </div>
     </EditForm>
 </div>
+
 
 <section>
 
@@ -84,9 +86,10 @@
                 <th> Year </th>
                 <th> Allocated Slot </th>
                 <th> Program Name </th>
+                <th> After ISAC Slots </th>
+
                 <th> Action </th>
-          @*       <th> After ISAC Slots </th>
-                <th> Total Scolarship </th>
+                @*<th> Total Scolarship </th>
                 <th> Amount Spent (Rs)</th> *@
 
             </tr>
@@ -95,16 +98,20 @@
             @foreach (DataRow row in dt2.Rows)
             {
                 <tr>
+
+
                     <td>@row["fk_ProvinceId"]</td>
                     <td>@row["fk_InstituteId"]</td>
                     <td>@row["Year"]</td>
                     <td>@row["AllocatedSlot"]</td>
                     <td>@row["ProgramID"]</td>
-   @*                  <td>@row["TotalScolarships"]</td>
-                    <td>@row["AfterISACAllocated"]</td>
-                    <td>@row["AmountSpent"] Rs</td> *@
-                    <a class="btn btn-warning" href="#">After ISAC</a>
-                   
+                  
+                                     @* <td>@row["TotalScolarships"]</td> *@
+                <td>@row["AfterISACAllocated"]</td>
+@*                 <td>@row["AmountSpent"] Rs</td> *@
+<td>
+                    <button type="button" class="btn btn-warning" style="" data-bs-toggle="modal" data-bs-target="#exampleModal" @onclick='(()=>getInstituteId(row["fk_InstituteId"].ToString()))'> After ISAC</button>
+                    </td>
 
                 </tr>
 
@@ -117,6 +124,28 @@
 
 </section>
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="exampleInput" placeholder="AllocatedSlot" @bind="stdScholarship.AfterISACAllocated">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" @onclick="(()=>UpdateAllocatedSlots())" data-bs-dismiss="modal"> Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @code {
     [Parameter] public string? STDID { get; set; }
     public string? InstallmentEdit { get; set; }
@@ -127,11 +156,17 @@
     private string? ProvinceEdit { get; set; }
     private string? instituteName { get; set; }
     private string? ProgramName { get; set; }
+    private string? instituteid { get; set; }
 
     DataTable dt = new DataTable();
     DataTable dt1 = new DataTable();
     DataTable dt2 = new DataTable();
     DataTable dt3 = new DataTable();
+
+    public void getInstituteId(string instituteid)
+    {
+        stdScholarship.fk_InstituteId = instituteid;
+    }
 
     private void _InstallmentEdit(ChangeEventArgs e)
     {
@@ -151,6 +186,19 @@
         ProgramName = e.Value as string;
     }
 
+    protected void UpdateAllocatedSlots()
+    {
+
+
+        SqlParameter[] sp =
+        {
+           new SqlParameter("@AfterISACAllocated",stdScholarship.AfterISACAllocated),
+           new SqlParameter("@fk_InstituteId",stdScholarship.fk_InstituteId),
+
+    };
+        DALCRUD.CRUD("SP_UpdateAllocatedSlots", sp);
+        nm.NavigateTo("/stdscholarship", forceLoad: true);
+    }
     protected async Task SavestdScholarship()
     {
 
@@ -161,9 +209,9 @@
                 new SqlParameter("@Year",stdScholarship.Year),
                 new SqlParameter("@AllocatedSlot",stdScholarship.AllocatedSlot),
                 new SqlParameter("@ProgramID",ProgramName),
-            // new SqlParameter("@TotalScolarships",stdScholarship.TotalScolarships),
-            // new SqlParameter("@AfterISACAllocated",stdScholarship.AfterISACAllocated),
-            // new SqlParameter("@AmountSpent",stdScholarship.AmountSpent)
+    // new SqlParameter("@TotalScolarships",stdScholarship.TotalScolarships),
+    // new SqlParameter("@AfterISACAllocated",stdScholarship.AfterISACAllocated),
+    // new SqlParameter("@AmountSpent",stdScholarship.AmountSpent)
 
     };
         await DALCRUD.CRUD("SP_SaveStudentScholarship", sp);

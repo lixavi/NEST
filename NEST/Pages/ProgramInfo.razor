@@ -2,7 +2,7 @@
 
 
 
-<section class="container ">
+<section class=" container">
 
 
 
@@ -40,7 +40,7 @@
 </section>
 
 
-<div class="container table-responsive">
+<div class=" table-responsive">
 
     <Table TItem="EntDegreeProgramInfo" DataSource="@data">
 
@@ -50,7 +50,9 @@
             <Space Size=@("middle")>
 
                 <SpaceItem>
-                    <Button Danger>Delete</Button>
+                    
+                        <Button Danger @onclick="(()=>deleteProgram(context.ProgramId))">Delete</Button>
+                    
                 </SpaceItem>
             </Space>
         </ActionColumn>
@@ -91,6 +93,7 @@
 
     void definitions(string propertyName, object column)
     {
+       
         if (propertyName == "Tags")
         {
             var tagCol = ((Column<string[]>)column);
@@ -106,7 +109,7 @@
             }
             <Tag Color="@color">@tag</Tag>
         }
-    </span>
+            </span>
     ;
 
             return;
@@ -135,6 +138,15 @@
         nm.NavigateTo("/programinfo", forceLoad: true);
 
     }
+    private void deleteProgram(string id)
+    {
+        SqlParameter[] sp =
+        {
 
+            new SqlParameter("@pk_ProgramId",id),
+    };
+        DALCRUD.CRUD("SP_deleteProgram", sp);
+        nm.NavigateTo("/programinfo",forceLoad:true);
+    }
 
 }

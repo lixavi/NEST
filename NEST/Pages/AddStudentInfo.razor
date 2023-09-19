@@ -1,4 +1,4 @@
-﻿@page "/AddStudentInfo/{InstId}"
+﻿@page "/AddStudentInfo/{InstId:int}"
 <h3>AddStudentInfo</h3>
 
 <a href="studentinfo/@InstId" class="btn btn-primary ">Go Back</a>
@@ -6,39 +6,21 @@
 <section class="container">
     <EditForm Model="studentsinfo" OnSubmit="SaveStudentInfo">
         <div class="mb-3">
-            <table>
-                <tr>
-                    <td>
-                        <label for="CityCode" class="form-label">Institute ID</label>
-                        <input type="int" class="form-control" id="exampleInput" @bind="studentsinfo!.Fk_InstituteId" disabled required>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+           
+              
                         <label for="CityCode" class="form-label">Name</label>
                         <InputText class="form-control" @bind-Value="studentsinfo.Name" required />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+                   
+                    
                         <label for="CityCode" class="form-label">FatherName</label>
                         <InputText class="form-control" @bind-Value="studentsinfo.FatherName" required />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+                   
                         <label for="CityCode" class="form-label">CNIC</label>
                         <InputText class="form-control" @bind-Value="studentsinfo.CNIC" required />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+                    
                         <label for="CityCode" class="form-label">PhoneNo</label>
                         <InputText class="form-control" @bind-Value="studentsinfo.PhoneNo" required />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+                   
 
                         <label for="CityCode" class="form-label">Gender</label>
                         <select class="form-select" aria-label="Default select example" @onchange="_GenderEdit" required>
@@ -48,10 +30,7 @@
                             <option value="Female">Female</option>
 
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+                    
                         <label for="CityCode" class="form-label">Maritial</label>
 
                         <select class="form-select" aria-label="Default select example" @onchange="_MaritialEdit" required>
@@ -61,10 +40,7 @@
                             <option value="Un-Married">Un-Married</option>
 
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+                    
                         <label for="CityCode" class="form-label">Religion</label>
                         <select class="form-select" aria-label="Default select example" @onchange="_ReligionEdit" required>
                             <option ID="DropDown">---Select Religion---</option>
@@ -73,17 +49,10 @@
                             <option value="Non-Muslim">Non-Muslim</option>
 
                         </select>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
+                    
                         <label for="CityCode" class="form-label">Email</label>
                         <InputText class="form-control" @bind-Value="studentsinfo.Email" required />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+                   
 
 
                         <label for="CityCode" class="form-label">Country</label>
@@ -95,10 +64,7 @@
                             <option value="others">Other</option>
 
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+                   
                         <label for="CityCode" class="form-label">DomicileProvince</label>
                         <select class="form-select" aria-label="Default select example" @onchange="_SelectProvince" required>
                             <option ID="DropDown">---Select province---</option>
@@ -109,10 +75,7 @@
                             }
 
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+                    
                         <label for="CityCode" class="form-label">DomicileDistrict</label>
                         <select class="form-select" aria-label="Default select example" @bind="selectedDistrict" required>
                             <option ID="DropDown">---Select District---</option>
@@ -123,11 +86,7 @@
                             }
 
                         </select>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>
+                    
                         <label for="CityCode" class="form-label">StdDisable</label>
                         <select class="form-select" aria-label="Default select example" @onchange="_DisableEdit" required>
                             <option ID="DropDown">---Select Status---</option>
@@ -137,9 +96,7 @@
 
 
                         </select>
-                    </td>
-                </tr>
-                <tr>
+                    
                     @if (DisableEdit == "Yes")
                     {
                         <td>
@@ -147,9 +104,7 @@
                             <InputText class="form-control" @bind-Value="studentsinfo.DisableDisc" />
                         </td>
                     }
-                </tr>
-                <tr>
-                    <td>
+               
 
                         <label for="CityCode" class="form-label">DivorceParents</label>
                         <select class="form-select" aria-label="Default select example" @onchange="_DivorceParents" required>
@@ -160,10 +115,7 @@
 
 
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+                    
                         <label for="CityCode" class="form-label">Orphan</label>
                         <select class="form-select" aria-label="Default select example" @onchange="_Orphan" required>
                             <option ID="DropDown">---Select Status---</option>
@@ -173,19 +125,13 @@
 
 
                         </select>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>
+                    
                         @if (Orphan == "Yes")
                         {
                             <label for="CityCode" class="form-label">OrphanDesc</label>
                             <InputText class="form-control" @bind-Value="studentsinfo.OrphanDesc" />
                         }
-                    </td>
-                </tr>
-            </table>
+                  
 
             <button type="submit" class="btn btn-primary mt-3">Save</button>
 
@@ -196,7 +142,7 @@
 
 @code {
 
-    [Parameter] public string? InstId { get; set; }
+    [Parameter] public int InstId { get; set; }
 
     private Dictionary<string, List<string>> ProvincesAndDistricts = new Dictionary<string, List<string>>
         {
@@ -231,7 +177,7 @@
 
     protected override void OnInitialized()
     {
-        studentsinfo!.Fk_InstituteId = InstId;
+        studentsinfo!.Fk_InstituteId = InstId.ToString();
         UpdateDistricts();
     }
 
@@ -331,6 +277,7 @@
 
     };
         await DALCRUD.CRUD("SP_SaveStudentInfo", sp);
+        nm.NavigateTo("/studentinfo/{InstId}");
 
 
     }

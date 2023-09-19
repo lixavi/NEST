@@ -3,7 +3,7 @@
 @using AntDesign.TableModels
 @using AntDesign.Core.Extensions
 <a href="/addemployee" class="btn btn-primary mt-3 mb-3"> Add Employee</a>
-<div class="container table-responsive">
+<div class=" table-responsive">
 
     <Table  TItem="EntEmployee" DataSource="@data">
 
@@ -13,7 +13,7 @@
         <Space Size=@("middle")>
            
             <SpaceItem>
-                    <Button Danger >Delete</Button>
+                    <Button Danger @onclick="(()=>deleteEmployee(context.Pk_EmployeeId))">Delete</Button>
             </SpaceItem>
         </Space>
     </ActionColumn>
@@ -72,7 +72,8 @@
             }
             <Tag Color="@color">@tag</Tag>
         }
-    </span>;
+            </span>
+    ;
 
             return;
         }
@@ -80,5 +81,16 @@
         // You can use the `SetValue` extension method to set parameters for columns.
         column.SetValue("Sortable", true);
         column.SetValue("Filterable", true);
+    }
+
+    private void deleteEmployee(string id)
+    {
+        SqlParameter[] sp =
+       {
+
+            new SqlParameter("@pk_EmployeeId",id),
+    };
+        DALCRUD.CRUD("SP_deleteEmployeeInfo", sp);
+        nm.NavigateTo("/employee", forceLoad: true);
     }
 }

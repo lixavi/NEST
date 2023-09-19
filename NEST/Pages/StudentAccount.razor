@@ -9,9 +9,9 @@
 
         <table>
             <tr>
-                <td>
+               @*  <td>
                     <input type="text" disabled class="form-control" id="exampleInput" placeholder="Enter Name here" @bind="_StdAccountModel.fk_StudentId">
-                </td>
+                </td> *@
                 <td>
                     <input type="text" class="form-control" id="exampleInput" placeholder="Enter Account Title" @bind="_StdAccountModel.AcTitle">
                 </td>
@@ -24,9 +24,9 @@
                     <input type="text" class="form-control" id="exampleInput" placeholder="Enter Bank Name" @bind="_StdAccountModel.BankName">
                 </td>
          
-                <td>
+            @*     <td>
                     <input type="number" class="form-control" id="exampleInput" placeholder="Enter Amount" @bind="_StdAccountModel.Amount">
-                </td>
+                </td> *@
                 <td>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </td>
@@ -38,11 +38,11 @@
 <table class="table">
     <thead>
         <tr>
-            <th>fk_StudentId</th>
+            <th>StudentId</th>
             <th>AccTitle</th>
             <th>IBANNo</th>
             <th>BankName</th>
-            <th>Amount</th>
+           @*  <th>Amount</th> *@
             <th>Date & Time </th>
            
         </tr>
@@ -56,7 +56,7 @@
                 <td>@row["AcTitle"]</td>
                 <td>@row["IBANNo"]</td>
                 <td>@row["BankName"]</td>
-                <td>@row["Amount"]</td>
+                @* <td>@row["Amount"]</td> *@
                 <td>@row["DateTimee"]</td>
                 
             </tr>
@@ -86,7 +86,7 @@
             new SqlParameter("@AccTitle", _StdAccountModel.AcTitle),
             new SqlParameter("@IBANNo", _StdAccountModel.IBANNo),
             new SqlParameter("@BankName", _StdAccountModel.BankName),
-            new SqlParameter("@Amount", _StdAccountModel.Amount),
+            // new SqlParameter("@Amount", _StdAccountModel.Amount),
     };
         await DALCRUD.CRUD("SP_SaveStdAccount", sp);
         await OnInitializedAsync();

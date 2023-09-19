@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\muham\\Downloads\\N\\NEST\\CLassLibraryEntities\\CLassLibraryEntities.csproj",
+      "projectUniqueName": "C:\\Users\\muham\\Downloads\\NewNEST\\NewNEST\\CLassLibraryEntities\\CLassLibraryEntities.csproj",
       "projectName": "CLassLibraryEntities",
-      "projectPath": "C:\\Users\\muham\\Downloads\\N\\NEST\\CLassLibraryEntities\\CLassLibraryEntities.csproj",
+      "projectPath": "C:\\Users\\muham\\Downloads\\NewNEST\\NewNEST\\CLassLibraryEntities\\CLassLibraryEntities.csproj",
       "packagesPath": "C:\\Users\\muham\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\muham\\Downloads\\N\\NEST\\CLassLibraryEntities\\obj\\",
+      "outputPath": "C:\\Users\\muham\\Downloads\\NewNEST\\NewNEST\\CLassLibraryEntities\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\muham\\AppData\\Roaming\\NuGet\\NuGet.Config",
